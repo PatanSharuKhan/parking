@@ -64,7 +64,6 @@ class Parking
         end
         puts "Entered invalid slot id !"
     end
-
 end
 
 class Vehicle
