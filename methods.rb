@@ -34,6 +34,9 @@ class Parking
                 @slots[slot]=vehicleObject
                 @@vehicles_count+=1
                 @@empty_slots_count-=1
+                puts "*"*30
+                puts "vehicle added successfully"
+                puts "*"*30
                 return
             end
         end
