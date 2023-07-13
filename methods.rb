@@ -45,11 +45,21 @@ class Parking
         puts "vehicle added successfully"
         puts "*"*30
     end
-    def removeVehicle
+    def displayVehicles
         puts "for removing vehicle .."
         for i in (0...@slots.length)
             puts "#{i} - #{@slots[i]}"
         end
+    end
+    def removeVehicle(slot_id)
+        for i in (0...@slots.length)
+            if slot_id==i
+                @slots[i]=0
+                puts "Vehicle removed!"
+                return
+            end
+        end
+        puts "Entered invalid slot id !"
     end
 
 end
@@ -89,9 +99,9 @@ def activateTask(option,parking)
         vehicle=Vehicle.new(gets.chomp)
         parking.addVehicle(vehicle.vehicleObject,parking)
     when "3"
-        parking.removeVehicle
-        gets
-        puts "Vehicle removed!"
+        parking.displayVehicles
+        slot_id=gets.chomp.to_i
+        parking.removeVehicle(slot_id)
     when "4"
         parking.displaySlots
         parking.displayParkingDetails
