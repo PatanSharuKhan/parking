@@ -57,6 +57,10 @@ class Parking
     def removeVehicle(slot_id)
         for i in (0...@slots.length)
             if slot_id==i
+                if @slots[i]==0
+                    puts "The slot you selected is not having vehicle"
+                    return 
+                end
                 @slots[i]=0
                 puts "Vehicle removed!"
                 return
