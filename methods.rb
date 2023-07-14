@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 module Methods
+  # parking class
   class Parking
-    @@slots_count = 0
-    @@vehicles_count = 0
-    @@empty_slots_count = 0
+    @slots_count = 0
+    @vehicles_count = 0
+    @empty_slots_count = 0
 
     def initialize
       @slots = []
@@ -27,9 +30,9 @@ module Methods
     end
 
     def loop_program_until_exit
-      while true
+      loop do
         display_task_options
-        user_option=gets.chomp
+        user_option = gets.chomp
         break if user_option == '0'
 
         complete_task user_option
@@ -47,8 +50,8 @@ module Methods
 
     def add_slot
       @slots << 0
-      @@slots_count += 1
-      @@empty_slots_count += 1
+      @slots_count += 1
+      @empty_slots_count += 1
       puts 'New slot is created!'
       puts
     end
@@ -71,25 +74,23 @@ module Methods
       puts
     end
 
+    def update_count_success_view
+      @vehicles_count += 1
+      @empty_slots_count -= 1
+      puts '----------------vehicle added successfully------------------'
+    end
+
     def add_vehicle(vehicle_object)
       (0...@slots.length).each do |slot|
         if @slots[slot].zero?
-          @slots[slot] = vehicle_bject
-          @@vehicles_count += 1
-          @@empty_slots_count -= 1
-          puts '*' * 30
-          puts 'vehicle added successfully'
-          puts '*' * 30
-          return
+          @slots[slot] = vehicle_object
+          update_count_success_view
+          return ''
         end
       end
       parking.addSlot
       @slots[-1] = vehicle_bject
-      @@vehicles_count += 1 
-      @@empty_slots_count -= 1
-      puts '*' * 30
-      puts 'vehicle added successfully'
-      puts '*' * 30
+      update_count_success_view
     end
 
     def display_vehicles
@@ -102,47 +103,62 @@ module Methods
     def remove_vehicle(slot_id)
       (0...@slots.length).each do |i|
         if slot_id == i
-          if @slots[i] == 0
+          if @slots[i].zero?
             puts 'The slot you selected is not having vehicle'
-            return
+            return ''
           end
           @slots[i] = 0
           puts 'Vehicle removed!'
-          return
+          return ''
         end
       end
       puts 'Entered invalid slot id !'
     end
 
-    def complete_task(option)
+    def display_selected_option
       system 'clear'
       puts '-' * 20
       puts "You selected - #{option}"
       puts '-' * 20
       puts
+    end
+
+    def add_user_vehicle_data
+      puts 'Enter the vehicle user name:'
+      user_name = gets.chomp
+      puts 'Enter the vehicle number:'
+      vehicle_number = gets.chomp
+      puts 'Enter the vehicle lisence number:'
+      lisence_number = gets.chomp
+      vehicle = Vehicle.new(user_name, vehicle_number, lisence_number)
+      addVehicle(vehicle.vehicleObject)
+    end
+
+    def display_and_remove_vehicle
+      display_vehicles
+      slot_id = gets.chomp.to_i
+      removeVehicle(slot_id)
+    end
+
+    def activate_selected_option(option)
       case option
       when '1'
         add_slot
       when '2'
-        puts 'Enter the vehicle user name:'
-        user_name = gets.chomp
-        puts 'Enter the vehicle number:'
-        vehicle_number = gets.chomp
-        puts 'Enter the vehicle lisence number:'
-        lisence_number = gets.chomp
-        vehicle = Vehicle.new(user_name, vehicle_number, lisence_number)
-        addVehicle(vehicle.vehicleObject)
+        add_user_vehicle_data
       when '3'
-        display_vehicles
-        slot_id = gets.chomp.to_i
-        removeVehicle(slot_id)
+        display_and_remove_vehicle
       when '4'
         display_slots
         display_parking_details
       else
-        puts 'Invalid option !'
-        puts 'Enter the valid option !'
+        puts 'Invalid option ! Enter the valid option !'
       end
+    end
+
+    def complete_task(option)
+      display_selected_option
+      activate_selected_option option
     end
 
     def run
@@ -152,6 +168,7 @@ module Methods
     end
   end
 
+  # vehicle class
   class Vehicle
     def initialize(user_name, vehicle_number, lisence_number)
       @id = Time.new
