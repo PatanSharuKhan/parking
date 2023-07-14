@@ -129,7 +129,7 @@ module Methods
     end
 
     def vehicle_object
-      return {
+      {
         id: @id,
         user_name: @user_name,
         vehicle_number: @vehicle_number,
