@@ -1,17 +1,18 @@
 module Methods
   class Parking
-    @@slots_count=0
-    @@vehicles_count=0
-    @@empty_slots_count=0
+    @@slots_count = 0
+    @@vehicles_count = 0
+    @@empty_slots_count = 0
+
     def initialize
-      @slots=[]
+      @slots = []
     end
 
     def starting_greet
       system 'clear'
-      puts '*'*30
+      puts '*' * 30
       puts 'PARKING MANAGEMENT SYSTEM'
-      puts '*'*30
+      puts '*' * 30
       puts
     end
 
@@ -27,10 +28,11 @@ module Methods
 
     def loop_program_until_exit
       while true
-        displayTaskOptions
-        userOption=gets.chomp
-        break if userOption == '0'
-        completeTask userOption
+        display_task_options
+        user_option=gets.chomp
+        break if user_option == '0'
+
+        complete_task user_option
         sleep 1
       end
     end
@@ -38,115 +40,115 @@ module Methods
     def ending_greet
       system 'clear'
       puts
-      puts '*'*30
+      puts '*' * 30
       puts 'THANK YOU ! VISIT AGAIN !'
-      puts '*'*30
+      puts '*' * 30
     end
 
     def add_slot
       @slots << 0
-      @@slots_count+=1
-      @@empty_slots_count+=1
+      @@slots_count += 1
+      @@empty_slots_count += 1
       puts 'New slot is created!'
       puts
     end
 
     def display_parking_details
       puts
-      puts '/'*30
+      puts '/' * 30
       puts "Total slots - #{@@slots_count}"
       puts "Vehicles count - #{@@vehicles_count}"
       puts "Empty slots count - #{@@empty_slots_count}"
-      puts '/'*30
+      puts '/' * 30
       puts
     end
 
     def display_slots
-      puts 
+      puts
       puts 'Slots view'
       print @slots
       puts
       puts
     end
 
-    def add_vehicle(vehicleObject)
-    for slot in (0...@slots.length)
-      if @slots[slot]==0
-        @slots[slot]=vehicleObject
-        @@vehicles_count+=1
-        @@empty_slots_count-=1
-        puts '*'*30
-        puts 'vehicle added successfully'
-        puts '*'*30
-        return
+    def add_vehicle(vehicle_object)
+      (0...@slots.length).each do |slot|
+        if @slots[slot].zero?
+          @slots[slot] = vehicle_bject
+          @@vehicles_count += 1
+          @@empty_slots_count -= 1
+          puts '*' * 30
+          puts 'vehicle added successfully'
+          puts '*' * 30
+          return
+        end
       end
-    end
-    parking.addSlot
-    @slots[-1] = vehicleObject
-    @@vehicles_count += 1 
-    @@empty_slots_count -= 1
-    puts '*'*30
-    puts 'vehicle added successfully'
-    puts '*'*30
+      parking.addSlot
+      @slots[-1] = vehicle_bject
+      @@vehicles_count += 1 
+      @@empty_slots_count -= 1
+      puts '*' * 30
+      puts 'vehicle added successfully'
+      puts '*' * 30
     end
 
     def display_vehicles
-    puts 'for removing vehicle, enter respective serial numbers:'
-    for i in (0...@slots.length)
+      puts 'for removing vehicle, enter respective serial numbers:'
+      (0...@slots.length).each do |i|
         puts "#{i} - #{@slots[i]}"
-    end
+      end
     end
 
     def remove_vehicle(slot_id)
-    for i in (0...@slots.length)
+      (0...@slots.length).each do |i|
         if slot_id == i
-            if @slots[i] == 0
-                puts 'The slot you selected is not having vehicle'
-                return 
-            end
-            @slots[i] = 0
-            puts 'Vehicle removed!'
+          if @slots[i] == 0
+            puts 'The slot you selected is not having vehicle'
             return
+          end
+          @slots[i] = 0
+          puts 'Vehicle removed!'
+          return
         end
-    end
-    puts 'Entered invalid slot id !'
+      end
+      puts 'Entered invalid slot id !'
     end
 
     def complete_task(option)
-    system 'clear'
-    puts '-'*20
-    puts "You selected - #{option}"
-    puts '-'*20
-    puts
-    case option
-    when '1'
-        addSlot
-    when '2'
+      system 'clear'
+      puts '-' * 20
+      puts "You selected - #{option}"
+      puts '-' * 20
+      puts
+      case option
+      when '1'
+        add_slot
+      when '2'
         puts 'Enter the vehicle user name:'
-        userName = gets.chomp
+        user_name = gets.chomp
         puts 'Enter the vehicle number:'
-        vehicleNumber = gets.chomp 
+        vehicle_number = gets.chomp
         puts 'Enter the vehicle lisence number:'
-        lisenceNumber = gets.chomp
-        vehicle = Vehicle.new(userName, vehicleNumber, lisenceNumber)
+        lisence_number = gets.chomp
+        vehicle = Vehicle.new(user_name, vehicle_number, lisence_number)
         addVehicle(vehicle.vehicleObject)
-    when '3'
-        displayVehicles
+      when '3'
+        display_vehicles
         slot_id = gets.chomp.to_i
         removeVehicle(slot_id)
-    when '4'
-        displaySlots
-        displayParkingDetails
-    else
+      when '4'
+        display_slots
+        display_parking_details
+      else
         puts 'Invalid option !'
         puts 'Enter the valid option !'
-    end
+      end
     end
 
-    def run 
-      startingGreet
-      loopProgramUntilExit
-      endingGreet
+    def run
+      starting_greet
+      loop_program_until_exit
+      ending_greet
     end
   end
 
