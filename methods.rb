@@ -55,11 +55,11 @@ module Methods
 
     def add_vehicle(vehicle_object)
       (0...@slots.length).each do |slot|
-        if @slots[slot].zero?
-          @slots[slot] = vehicle_object
-          update_count_success_view
-          return ''
-        end
+        next unless @slots[slot].zero?
+
+        @slots[slot] = vehicle_object
+        update_count_success_view
+        return ''
       end
       parking.addSlot
       @slots[-1] = vehicle_bject
@@ -75,15 +75,15 @@ module Methods
 
     def remove_vehicle(slot_id)
       (0...@slots.length).each do |i|
-        if slot_id == i
-          if @slots[i].zero?
-            puts 'The slot you selected is not having vehicle'
-            return ''
-          end
-          @slots[i] = 0
-          puts 'Vehicle removed!'
+        next if slot_id != i
+
+        if @slots[i].zero?
+          puts 'The slot you selected is not having vehicle'
           return ''
         end
+        @slots[i] = 0
+        puts 'Vehicle removed!'
+        return ''
       end
       puts 'Entered invalid slot id !'
     end
