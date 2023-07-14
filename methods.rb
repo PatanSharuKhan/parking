@@ -11,14 +11,6 @@ module Methods
       @slots = []
     end
 
-    def starting_greet
-      system 'clear'
-      puts '*' * 30
-      puts 'PARKING MANAGEMENT SYSTEM'
-      puts '*' * 30
-      puts
-    end
-
     def display_task_options
       puts 'Select the following task option:'
       puts '1 - Create Slot'
@@ -26,26 +18,16 @@ module Methods
       puts '3 - Remove vehicle'
       puts '4 - View slots'
       puts '0 - Quit the parking area !'
-      puts
     end
 
-    def loop_program_until_exit
+    def run
       loop do
         display_task_options
         user_option = gets.chomp
         break if user_option == '0'
 
         complete_task user_option
-        sleep 1
       end
-    end
-
-    def ending_greet
-      system 'clear'
-      puts
-      puts '*' * 30
-      puts 'THANK YOU ! VISIT AGAIN !'
-      puts '*' * 30
     end
 
     def add_slot
@@ -53,25 +35,16 @@ module Methods
       @slots_count += 1
       @empty_slots_count += 1
       puts 'New slot is created!'
-      puts
     end
 
     def display_parking_details
-      puts
-      puts '/' * 30
       puts "Total slots - #{@@slots_count}"
       puts "Vehicles count - #{@@vehicles_count}"
       puts "Empty slots count - #{@@empty_slots_count}"
-      puts '/' * 30
-      puts
     end
 
     def display_slots
-      puts
-      puts 'Slots view'
-      print @slots
-      puts
-      puts
+      puts "Slots view - #{@slots}"
     end
 
     def update_count_success_view
@@ -117,10 +90,7 @@ module Methods
 
     def display_selected_option
       system 'clear'
-      puts '-' * 20
-      puts "You selected - #{option}"
-      puts '-' * 20
-      puts
+      puts "-------------You selected - #{option}"
     end
 
     def add_user_vehicle_data
@@ -159,12 +129,6 @@ module Methods
     def complete_task(option)
       display_selected_option
       activate_selected_option option
-    end
-
-    def run
-      starting_greet
-      loop_program_until_exit
-      ending_greet
     end
   end
 
