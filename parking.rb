@@ -51,7 +51,7 @@ module Methods
       puts 'Enter the user mobile number:'
       mobile_number = gets.chomp
       vehicle = Vehicles::Vehicle.new(user_name, vehicle_number, lisence_number, mobile_number)
-      add_vehicle(vehicle.vehicle_object)
+      add_vehicle(vehicle)
     end
 
     def add_vehicle(vehicle_object)
@@ -76,27 +76,28 @@ module Methods
     def display_and_remove_vehicle
       if @slots.length.positive?
         display_vehicles
-        slot_id = gets.chomp.to_i
-        remove_vehicle(slot_id)
+        remove_vehicle(gets.chomp.to_i)
       else
         puts "\nVehicles Not Found!\n\n"
       end
     end
 
     def display_vehicles
-      puts '---id - name---'
+      puts "#{'-' * 60}\n---[ id - name - phone_number - lisence_number ]---\n#{'-' * 60}"
       @slots.length.times do |i|
-        puts "#{i} - #{@slots[i]}" if @slots[i] != 0
+        p "#{i} - #{@slots[i].user_name} - #{@slots[i].mobile_number} - #{@slots[i].lisence_number}" if @slots[i] != 0
       end
     end
 
     def remove_vehicle(slot_id)
       @slots.length.times do |i|
-        if slot_id != i then next
-        elsif @slots[i] == Hash then modify_slot(i)
-                                     return ''
-        elsif @slots[i].zero? then puts "The slot you selected is not having vehicle \n"
-                                   return ''
+        next if slot_id != i
+
+        if @slots[i] != 0
+          modify_slot(i)
+          return ''
+        else
+          puts 'enter the valid slot id!'
         end
       end
       puts "Entered invalid slot id ! \n"
@@ -109,7 +110,10 @@ module Methods
     end
 
     def display_slots
-      puts "\nSlots view - #{@slots}"
+      puts "#{'-' * 60}\n---[ id - name - phone_number - lisence_number ]---\n#{'-' * 60}"
+      @slots.length.times do |i|
+        p "#{i} - #{@slots[i].user_name} - #{@slots[i].mobile_number} - #{@slots[i].lisence_number}" if @slots[i] != 0
+      end
     end
 
     def display_parking_details
