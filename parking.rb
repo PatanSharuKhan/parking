@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require './vehicle'
-require './parkingMethods'
+require './parking_methods'
 
 # Parking method module with classes parking and vehicle
 module Methods
   # parking class
-  class Parking
+  class Parking < ParkingMethods::Methods
     def initialize
       @slots = []
       @slots_count = 0
