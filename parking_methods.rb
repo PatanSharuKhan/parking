@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # parking module
-module ParkingMethods
-  def display_task_options
+module Methods
+  def self.display_task_options
     puts ''
     puts 'Select the following task option:'
     puts '1 - Create Slot'

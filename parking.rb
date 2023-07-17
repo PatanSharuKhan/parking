@@ -6,7 +6,7 @@ require './parking_methods'
 # Parking method module with classes parking and vehicle
 module Methods
   # parking class
-  class Parking < ParkingMethods::Methods
+  class Parking
     def initialize
       @slots = []
       @slots_count = 0
@@ -18,25 +18,19 @@ module Methods
       loop do
         Methods.display_task_options
         user_option = gets.chomp.to_i
-        break if user_option.zero?
-
-        activate_selected_option user_option
+        user_option.zero? ? break : activate_selected_option(user_option)
       end
     end
 
     def activate_selected_option(option)
       case option
-      when 1
-        add_slot
-      when 2
-        add_user_vehicle_data
-      when 3
-        display_and_remove_vehicle
+      when 1 then add_slot
+      when 2 then add_user_vehicle_data
+      when 3 then display_and_remove_vehicle
       when 4
         display_slots
         display_parking_details
-      else
-        puts 'Invalid option ! Enter the valid option !'
+      else puts 'Invalid option ! Enter the valid option !'
       end
     end
 
@@ -54,13 +48,15 @@ module Methods
       vehicle_number = gets.chomp
       puts 'Enter the vehicle lisence number:'
       lisence_number = gets.chomp
-      vehicle = Vehicles::Vehicle.new(user_name, vehicle_number, lisence_number)
+      puts 'Enter the user mobile number:'
+      mobile_number = gets.chomp
+      vehicle = Vehicles::Vehicle.new(user_name, vehicle_number, lisence_number, mobile_number)
       add_vehicle(vehicle.vehicle_object)
     end
 
     def add_vehicle(vehicle_object)
       @slots.length.times do |slot|
-        next unless (@slots[slot]).zero?
+        next if @slots[slot] != 0
 
         @slots[slot] = vehicle_object
         update_count_success_view
@@ -78,9 +74,7 @@ module Methods
     end
 
     def display_and_remove_vehicle
-      error_msg = "\nfor removing vehicle, enter respective serial numbers:\n\n"
       if @slots.length.positive?
-        puts error_msg
         display_vehicles
         slot_id = gets.chomp.to_i
         remove_vehicle(slot_id)
@@ -90,27 +84,28 @@ module Methods
     end
 
     def display_vehicles
-      (0...@slots.length).each do |i|
-        puts "#{i} - #{@slots[i]}"
+      puts '---id - name---'
+      @slots.length.times do |i|
+        puts "#{i} - #{@slots[i]}" if @slots[i] != 0
       end
     end
 
     def remove_vehicle(slot_id)
       @slots.length.times do |i|
-        next if slot_id != i
-
-        if @slots[i].instance_of?(Vehicles::Vehicle) # is instance of vehicle class ?
-          @slots[i] = 0
-          @vehicles_count -= 1
-          puts "Vehicle removed!\n\n"
-          return ''
-        end
-        if (@slots[i]).zero?
-          puts "The slot you selected is not having vehicle \n"
-          return ''
+        if slot_id != i then next
+        elsif @slots[i] == Hash then modify_slot(i)
+                                     return ''
+        elsif @slots[i].zero? then puts "The slot you selected is not having vehicle \n"
+                                   return ''
         end
       end
       puts "Entered invalid slot id ! \n"
+    end
+
+    def modify_slot(index)
+      @slots[index] = 0
+      @vehicles_count -= 1
+      puts "Vehicle removed!\n\n"
     end
 
     def display_slots
