@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "./vehicle"
+require './vehicle'
 
 # Parking method module with classes parking and vehicle
 module Methods
@@ -107,16 +107,13 @@ module Methods
       @slots.length.times do |i|
         next if slot_id != i
 
-        is_object = @slots[i].instance_of?(Vehicles::Vehicle)
-        puts is_object
-        if is_object
+        if @slots[i].instance_of?(Vehicles::Vehicle) # is instance of vehicle class ?
           @slots[i] = 0
           @vehicles_count -= 1
           puts "Vehicle removed!\n\n"
           return ''
         end
-        is_zero = (@slots[i]).zero?
-        if is_zero
+        if (@slots[i]).zero?
           puts "The slot you selected is not having vehicle \n"
           return ''
         end

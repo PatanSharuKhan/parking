@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './methods'
+require './parking'
 
 parking = Methods::Parking.new
 parking.run
