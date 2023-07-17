@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require './vehicle'
+require './parkingMethods'
 
 # Parking method module with classes parking and vehicle
 module Methods
@@ -15,21 +16,12 @@ module Methods
 
     def run
       loop do
-        display_task_options
+        Methods.display_task_options
         user_option = gets.chomp.to_i
         break if user_option.zero?
 
         activate_selected_option user_option
       end
-    end
-
-    def display_task_options
-      puts "\n\nSelect the following task option:"
-      puts '1 - Create Slot'
-      puts '2 - Add vehicle'
-      puts '3 - Remove vehicle'
-      puts '4 - View slots'
-      puts "0 - Quit the parking area ! \n \n"
     end
 
     def activate_selected_option(option)
