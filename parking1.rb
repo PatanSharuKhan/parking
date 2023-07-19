@@ -20,7 +20,8 @@ module Parking1
       end
       puts "#{'-' * 60}\n---[ id - name - phone_number - lisence_number ]---\n#{'-' * 60}"
       @slots.length.times do |i|
-        p "#{i + 1} - #{@slots[i].user_name} - #{@slots[i].mobile_number} - #{@slots[i].lisence_number}"
+        print_details if @slots[i] != 0
+        puts "#{i + 1} - empty slot" if @slots[i].zero?
       end
     end
 
@@ -52,7 +53,7 @@ module Parking1
     def are_cond_satisfied(code, code_lst)
       cond = true
       return false if code.empty? || code_lst.length <= 3
-      return false if code_lst[0].match(/\d/) || !(code_lst[1].to_i.is_a? Integer)
+      return false if check_are_numeric(code_lst[0]) || !check_are_numeric(code_lst[1])
       return false unless are_alphanum(code_lst[2], code_lst[3])
 
       cond
@@ -89,7 +90,7 @@ module Parking1
       true
     end
 
-    def check_are_alphanumeric(num)
+    def check_are_numeric(num)
       num.length.times do |i|
         unless num[i].match(/\d/)
           puts 'Invalid number entered!'
@@ -105,7 +106,7 @@ module Parking1
         puts 'Enter valid number' if num.length != 10
         next if num.length != 10
 
-        is_valid = check_are_alphanumeric num
+        is_valid = check_are_numeric num
         return num if is_valid
       end
     end

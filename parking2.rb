@@ -12,5 +12,9 @@ module Parking2
       puts '4 - View slots'
       puts "0 - Quit the parking area !\n\n"
     end
+
+    def print_details
+      p "#{i + 1} - #{@slots[i].user_name} - #{@slots[i].mobile_number} - #{@slots[i].lisence_number}"
+    end
   end
 end
