@@ -1,36 +1,37 @@
 # frozen_string_literal: true
 
+require './parking2'
+
 # parking module
 module Parking1
   # inherit parking2 module
-  class Park1
-    def display_task_options
-      puts "\nSelect the following task option:"
-      puts '1 - Create Slot'
-      puts '2 - Add vehicle'
-      puts '3 - Remove vehicle'
-      puts '4 - View slots'
-      puts "0 - Quit the parking area !\n\n"
-    end
-
-    def display_vehicles(slots)
+  class Park1 < Parking2::Park2
+    def display_vehicles(mod_slots)
       puts "#{'-' * 60}\n---[ id - name - phone_number - lisence_number ]---\n#{'-' * 60}"
-      slots.length.times do |i|
-        p "#{i + 1} - #{slots[i].user_name} - #{slots[i].mobile_number} - #{slots[i].lisence_number}" if slots[i] != 0
+      mod_slots.length.times do |i|
+        p "#{i + 1} - #{mod_slots[i].user_name} - #{mod_slots[i].mobile_number} - #{mod_slots[i].lisence_number}"
       end
     end
 
-    def display_slots(slots)
+    def display_slots
+      if @slots.empty?
+        puts "\nSlots not available\n"
+        return ''
+      end
       puts "#{'-' * 60}\n---[ id - name - phone_number - lisence_number ]---\n#{'-' * 60}"
-      slots.length.times do |i|
-        p "#{i + 1} - #{slots[i].user_name} - #{slots[i].mobile_number} - #{slots[i].lisence_number}" if slots[i] != 0
+      @slots.length.times do |i|
+        if @slots[i] != 0
+          p "#{i + 1} - #{@slots[i].user_name} - #{@slots[i].mobile_number} - #{@slots[i].lisence_number}"
+        else
+          puts "#{i + 1} - empty slot"
+        end
       end
     end
 
-    def display_parking_details(slots_count, vehicles_count, empty_slots_count)
-      puts "\nTotal slots - #{slots_count}"
-      puts "Vehicles count - #{vehicles_count}"
-      puts "Empty slots count - #{empty_slots_count}\n\n"
+    def display_parking_details
+      puts "\nTotal slots - #{@slots_count}"
+      puts "Vehicles count - #{@vehicles_count}"
+      puts "Empty slots count - #{@empty_slots_count}\n\n"
     end
 
     def bring_verified_name

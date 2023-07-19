@@ -73,12 +73,14 @@ module Parking
     end
 
     def display_and_remove_vehicle
-      if @slots.length.positive?
-        display_vehicles @slots
-        remove_vehicle(gets.chomp.to_i - 1)
-      else
-        puts "\nVehicles Not Found!\n\n"
+      mod_slots = @slots.select { |slot| slot != 0 }
+      if mod_slots.empty?
+        puts "\nVehicles not found!\n"
+        return ''
       end
+      display_vehicles mod_slots
+      puts "\nEnter the Id to remove vehicle :\n"
+      remove_vehicle(gets.chomp.to_i - 1)
     end
 
     def remove_vehicle(slot_id)
