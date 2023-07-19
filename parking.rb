@@ -1,35 +1,34 @@
 # frozen_string_literal: true
 
 require './vehicle'
-require './parking_methods'
+require './parking1'
 
 # Parking method module with classes parking and vehicle
-module Methods
+module Parking
   # parking class
-  class Parking
+  class Park < Parking1::Park1
     def initialize
+      super
       @slots = []
       @slots_count = 0
       @vehicles_count = 0
       @empty_slots_count = 0
     end
 
-    def run
+    def run_app
       loop do
-        Methods.display_task_options
-        user_option = gets.chomp.to_i
-        user_option.zero? ? break : activate_selected_option(user_option)
+        display_task_options
+        user_option = gets.chomp
+        user_option == '0' ? break : trigger_selected_option(user_option)
       end
     end
 
-    def activate_selected_option(option)
+    def trigger_selected_option(option)
       case option
-      when 1 then add_slot
-      when 2 then add_user_vehicle_data
-      when 3 then display_and_remove_vehicle
-      when 4
-        display_slots
-        display_parking_details
+      when '1' then add_slot
+      when '2' then add_vehicle_data
+      when '3' then display_and_remove_vehicle
+      when '4' then display_slots
       else puts 'Invalid option ! Enter the valid option !'
       end
     end
@@ -38,18 +37,18 @@ module Methods
       @slots << 0
       @slots_count += 1
       @empty_slots_count += 1
-      puts "\nNew slot is created!\n\n"
+      puts "\nSlot is created.\n"
     end
 
-    def add_user_vehicle_data
+    def add_vehicle_data
       puts 'Enter the vehicle user name:'
-      user_name = gets.chomp
+      user_name = bring_verified_name
       puts 'Enter the vehicle number:'
-      vehicle_number = gets.chomp
+      vehicle_number = bring_verified_vehicle_number
       puts 'Enter the vehicle lisence number:'
-      lisence_number = gets.chomp
+      lisence_number = bring_verified_lisence_number
       puts 'Enter the user mobile number:'
-      mobile_number = gets.chomp
+      mobile_number = bring_verified_mobile_number
       vehicle = Vehicles::Vehicle.new(user_name, vehicle_number, lisence_number, mobile_number)
       add_vehicle(vehicle)
     end
@@ -75,17 +74,10 @@ module Methods
 
     def display_and_remove_vehicle
       if @slots.length.positive?
-        display_vehicles
-        remove_vehicle(gets.chomp.to_i)
+        display_vehicles @slots
+        remove_vehicle(gets.chomp.to_i - 1)
       else
         puts "\nVehicles Not Found!\n\n"
-      end
-    end
-
-    def display_vehicles
-      puts "#{'-' * 60}\n---[ id - name - phone_number - lisence_number ]---\n#{'-' * 60}"
-      @slots.length.times do |i|
-        p "#{i} - #{@slots[i].user_name} - #{@slots[i].mobile_number} - #{@slots[i].lisence_number}" if @slots[i] != 0
       end
     end
 
@@ -107,19 +99,6 @@ module Methods
       @slots[index] = 0
       @vehicles_count -= 1
       puts "Vehicle removed!\n\n"
-    end
-
-    def display_slots
-      puts "#{'-' * 60}\n---[ id - name - phone_number - lisence_number ]---\n#{'-' * 60}"
-      @slots.length.times do |i|
-        p "#{i} - #{@slots[i].user_name} - #{@slots[i].mobile_number} - #{@slots[i].lisence_number}" if @slots[i] != 0
-      end
-    end
-
-    def display_parking_details
-      puts "\nTotal slots - #{@slots_count}"
-      puts "Vehicles count - #{@vehicles_count}"
-      puts "Empty slots count - #{@empty_slots_count}\n\n"
     end
   end
 end

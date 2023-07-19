@@ -2,5 +2,5 @@
 
 require './parking'
 
-parking = Methods::Parking.new
-parking.run
+parking = Parking::Park.new
+parking.run_app
