@@ -20,11 +20,7 @@ module Parking1
       end
       puts "#{'-' * 60}\n---[ id - name - phone_number - lisence_number ]---\n#{'-' * 60}"
       @slots.length.times do |i|
-        if @slots[i] != 0
-          p "#{i + 1} - #{@slots[i].user_name} - #{@slots[i].mobile_number} - #{@slots[i].lisence_number}"
-        else
-          puts "#{i + 1} - empty slot"
-        end
+        p "#{i + 1} - #{@slots[i].user_name} - #{@slots[i].mobile_number} - #{@slots[i].lisence_number}"
       end
     end
 

@@ -73,7 +73,7 @@ module Parking
     end
 
     def display_and_remove_vehicle
-      mod_slots = @slots.select { |slot| slot != 0 }
+      mod_slots = @slots.reject { |slot| slot == 0 }
       if mod_slots.empty?
         puts "\nVehicles not found!\n"
         return ''
