@@ -7,9 +7,9 @@ module Parking1
   # inherit parking2 module
   class Park1 < Parking2::Park2
     def display_vehicles(mod_slots)
-      puts "#{'-' * 60}\n---[ id - name - phone_number - lisence_number ]---\n#{'-' * 60}"
+      puts "#{'-' * 60}\n---[ id - name - phone_number - lisence_number - email ]---\n#{'-' * 60}"
       mod_slots.length.times do |i|
-        p "#{i + 1} - #{mod_slots[i].user_name} - #{mod_slots[i].mobile_number} - #{mod_slots[i].lisence_number}"
+        p "#{i + 1} - #{mod_slots[i].user_name} - #{mod_slots[i].mobile_number} - #{mod_slots[i].lisence_number} - #{mod_slots[i].email}"
       end
     end
 
@@ -18,10 +18,9 @@ module Parking1
         puts "\nSlots not available\n"
         return ''
       end
-      puts "#{'-' * 60}\n---[ id - name - phone_number - lisence_number ]---\n#{'-' * 60}"
+      puts "#{'-' * 60}\n---[ id - name - phone_number - lisence_number - email ]---\n#{'-' * 60}"
       @slots.length.times do |i|
-        print_details if @slots[i] != 0
-        puts "#{i + 1} - empty slot" if @slots[i].zero?
+        @slots[i] != 0 ? print_details(i) : puts("#{i + 1} - empty slot")
       end
     end
 

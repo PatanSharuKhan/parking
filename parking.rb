@@ -40,16 +40,11 @@ module Parking
       puts "\nSlot is created.\n"
     end
 
-    def add_vehicle_data
-      puts 'Enter the vehicle user name:'
-      user_name = bring_verified_name
-      puts 'Enter the vehicle number:'
-      vehicle_number = bring_verified_vehicle_number
-      puts 'Enter the vehicle lisence number:'
-      lisence_number = bring_verified_lisence_number
-      puts 'Enter the user mobile number:'
-      mobile_number = bring_verified_mobile_number
-      vehicle = Vehicles::Vehicle.new(user_name, vehicle_number, lisence_number, mobile_number)
+    def add_vehicle_data # edited here
+      user_name, vehicle_number = bring_name_and_vehicle_number
+      lisence_number, mobile_number = bring_lisence_and_mobile_number
+      email = bring_email
+      vehicle = Vehicles::Vehicle.new(user_name, vehicle_number, lisence_number, mobile_number, email)
       add_vehicle(vehicle)
     end
 
