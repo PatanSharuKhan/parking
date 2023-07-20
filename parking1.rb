@@ -9,8 +9,7 @@ module Parking1
     def display_vehicles(mod_slots)
       puts "#{'-' * 60}\n---[ id - name - phone_number - lisence_number - email ]---\n#{'-' * 60}"
       mod_slots.length.times do |i|
-        p "#{i + 1} - #{mod_slots[i].user_name} - #{mod_slots[i].mobile_number} -
-         #{mod_slots[i].lisence_number} - #{mod_slots[i].email}"
+        print_mod_slot mod_slots[i], i
       end
     end
 

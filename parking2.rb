@@ -37,7 +37,7 @@ module Parking2
     def bring_email
       puts 'Enter your email:'
       email = bring_verified_email
-      [email]
+      email
     end
 
     def bring_verified_email
@@ -47,6 +47,15 @@ module Parking2
         puts 'Email should be in the format "xyz@gmail.com"' unless is_valid
         return input if is_valid
       end
+    end
+
+    def print_mod_slot(obj, index)
+      id = index + 1
+      name = obj.user_name
+      mobile = obj.mobile_number
+      lisence = obj.lisence_number
+      email = obj.email
+      puts "#{id} - #{name} - #{mobile} - #{lisence} - #{email}"
     end
   end
 end
