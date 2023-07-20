@@ -36,8 +36,7 @@ module Parking2
 
     def bring_email
       puts 'Enter your email:'
-      email = bring_verified_email
-      email
+      bring_verified_email
     end
 
     def bring_verified_email
@@ -56,6 +55,13 @@ module Parking2
       lisence = obj.lisence_number
       email = obj.email
       puts "#{id} - #{name} - #{mobile} - #{lisence} - #{email}"
+    end
+
+    def check_are_chars(str)
+      str.length.times do |i|
+        return false unless str[i].match(/\d/)
+      end
+      true
     end
   end
 end

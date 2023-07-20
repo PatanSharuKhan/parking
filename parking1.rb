@@ -52,7 +52,7 @@ module Parking1
     def are_cond_satisfied(code, code_lst)
       cond = true
       return false if code.empty? || code_lst.length <= 3
-      return false if check_are_numeric(code_lst[0]) || !check_are_numeric(code_lst[1])
+      return false if check_are_chars(code_lst[0]) || !check_are_numeric(code_lst[1])
       return false unless are_alphanum(code_lst[2], code_lst[3])
 
       cond
