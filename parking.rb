@@ -40,7 +40,7 @@ module Parking
       puts "\nSlot is created.\n"
     end
 
-    def add_vehicle_data # edited here
+    def add_vehicle_data
       user_name, vehicle_number = bring_name_and_vehicle_number
       lisence_number, mobile_number = bring_lisence_and_mobile_number
       email = bring_email

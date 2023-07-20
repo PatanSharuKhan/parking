@@ -13,16 +13,17 @@ module Parking2
       puts "0 - Quit the parking area !\n\n"
     end
 
-    def print_details(i)
-      p "#{i + 1} - #{@slots[i].user_name} - #{@slots[i].mobile_number} - #{@slots[i].lisence_number} - #{@slots[i].email}"
+    def print_details(index)
+      p "#{index + 1} - #{@slots[index].user_name} - #{@slots[index].mobile_number}
+       - #{@slots[index].lisence_number} - #{@slots[index].email}"
     end
 
-    def bring_name_and_vehicle_number # edited
+    def bring_name_and_vehicle_number
       puts 'Enter the vehicle user name:'
       user_name = bring_verified_name
       puts 'Enter the vehicle number:'
       vehicle_number = bring_verified_vehicle_number
-      return user_name, vehicle_number
+      [user_name, vehicle_number]
     end
 
     def bring_lisence_and_mobile_number
@@ -30,13 +31,13 @@ module Parking2
       lisence_number = bring_verified_lisence_number
       puts 'Enter the user mobile number:'
       mobile_number = bring_verified_mobile_number
-      return lisence_number, mobile_number
+      [lisence_number, mobile_number]
     end
 
     def bring_email
       puts 'Enter your email:'
       email = bring_verified_email
-      return email
+      [email]
     end
 
     def bring_verified_email
